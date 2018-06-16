@@ -8,8 +8,7 @@ import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 
-public class SampleUsersCreate {
-
+public class SampleVocabulariesCreate {
     public static void main(String[] args) throws Exception {
 
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
@@ -18,25 +17,25 @@ public class SampleUsersCreate {
 
         DynamoDB dynamoDB = new DynamoDB(client);
 
-        Table table = dynamoDB.getTable("Users");
+        Table table = dynamoDB.getTable("Vocabularies");
 
         int id = 1;
-        String email = "anezka.faltynkova@gmail.com";
-        String password = "password";
-        Long randomCode = 123456L;
+        String name = "Francouzština pro samouky";
+        Long userId = 1L;
+        Long numberOfNew = 1L;
 
         try {
             System.out.println("Adding a new item...");
             PutItemOutcome outcome = table
                     .putItem(new Item().withPrimaryKey("id", id)
-                            .withString("email", email)
-                            .withString("password", password)
-                            .withLong("randomCode", randomCode));
+                            .withString("name", name)
+                            .withLong("userId", userId)
+                            .withLong("numborOfNew", numberOfNew));
 
             System.out.println("PutItem succeeded:\n" + outcome.getPutItemResult());
 
         } catch (Exception e) {
-            System.err.println("Unable to add item: " + id + " " + email);
+            System.err.println("Unable to add item: " + id + " " + name);
             System.err.println(e.getMessage());
         }
     }
